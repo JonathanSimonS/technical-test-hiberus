@@ -1,0 +1,7 @@
+.image-container{
+    min-height: 60vh;
+    background-image: url('../assets/ecosystemhiberus.png');
+    background-size: cover  ;
+    background-repeat: no-repeat;
+    background-position: center ;
+}
