@@ -5,17 +5,18 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const LoginComponent = () => {
 
-    const handlerLogin = async (e, email, password) => {
+    const handlerLogin = (e, email, password) => {
         e.preventDefault();
         login(email, password)
         .then((result) => {
+            toast.success('Successfully login')
         
             // guardar token en storage
-            // window.localStorage.setItem("token",result.accessToken)
+            window.localStorage.setItem("token",JSON.stringify(result))
             
-            console.log(result.accessToken)
-            toast.success('Successfully login')
-            
+            console.log(result)
+            // navigate("/users");
+
         }).catch((err) => {
             toast.error(err)
         });
