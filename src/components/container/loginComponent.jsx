@@ -2,8 +2,11 @@ import React from 'react';
 import LoginForm from '../pure/forms/loginForm';
 import {login} from '../../services/authService'
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 
 const LoginComponent = () => {
+
+    const navigate = useNavigate();
 
     const handlerLogin = (e, email, password) => {
         e.preventDefault();
@@ -15,7 +18,7 @@ const LoginComponent = () => {
             window.localStorage.setItem("token",JSON.stringify(result))
             
             console.log(result)
-            // navigate("/users");
+            navigate("/user");
 
         }).catch((err) => {
             toast.error(err)

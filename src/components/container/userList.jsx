@@ -24,12 +24,12 @@ const UserList = () => {
 
     
     return (
-        <div className='container text-center p-2 '>
-            <h2 className='p-4'>Users list</h2>
+        <div className='container-fluid text-center'>
+            <h2 className='p-2'>Users list</h2>
             {/* mapeo */} 
             <div className="row m-0">
-                {users.map((user, key) => (
-                    <User key={key} user={user}></User>
+                {users.map((user, index) => (
+                    <User key={index} user={user}></User>
                 ))}
             </div>
         </div>

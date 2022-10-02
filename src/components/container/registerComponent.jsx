@@ -15,7 +15,7 @@ const RegisterComponent = () => {
             // window.localStorage.setItem("token",result.accessToken)
             
             console.log(result)
-            toast.success('Successfully login')
+            toast.success('Successfully sign up')
             
         }).catch((err) => {
             toast.error(err)
