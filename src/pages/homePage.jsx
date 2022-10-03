@@ -4,7 +4,6 @@ import LoginComponent from '../components/container/loginComponent';
 import RegisterComponent from '../components/container/registerComponent';
 import Footer from '../components/pure/footer'
 import './homePage.css'
-import { Link } from "react-router-dom";
 
 const HomePage = () => {
     return (

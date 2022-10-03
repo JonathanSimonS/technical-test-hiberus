@@ -1,26 +1,88 @@
 import axios from 'axios';
 const baseUrl = 'http://51.38.51.187:5050/api/v1/users'
+const tokenType = 'Bearer'
 
+const getMeUser  = async (token) =>{
+    try {
+        const response = await axios.get(`${baseUrl}/me`, {
+            headers: {
+                'Authorization': `${tokenType} ${token}`,
+            }
+        })
+        const meUser = response.data; 
+        return meUser;
+
+    } catch (error) {
+        throw error;
+    }
+}
 
 const getAllUsers  = async (token) =>{
     try {
-        const { tokenType, accessToken } = token;
         const response = await axios.get(`${baseUrl}`, {
             headers: {
-                'Authorization': `${tokenType} ${accessToken}`,
+                'Authorization': `${tokenType} ${token}`,
             }
         })
         const users = response.data.items; 
-        console.log(users)
         return users;
 
     } catch (error) {
+        throw error;
+    }
+}
+
+/**
+ * 
+ * @param {Object} token - User access token
+ * @param {string} id - User ID to edit
+ * @param {string} email - User email to edit
+ * @param {string} password - User password to edit
+ * @param {string} name - User name to edit
+ * @param {string} surname - User surname to edit
+ * @returns Update user
+ */
+const updateUser = async (token, id, email, password, name, surname) => {
+    
+    const options = {
+        method: 'PUT',
+        url: `${baseUrl}/${id}`,
+        headers: {
+            'Authorization': `${tokenType} ${token}`,
+        },
+        data: {
+            email: email,
+            password: password,
+            name: name,
+            surname: surname,
+            id: id
+        }
+    };
+
+    axios.request(options).then(function (response) {
+        console.log(response.data);
+    }).catch(function (error) {
+        console.error(error);
+    });
+}
+
+/**
+ * 
+ * @param {Object} token - User access token
+ * @param {string} id - User ID to delete
+ */
+const deleteUser = async (token, id) => {
+    try {
+        const response = await axios.delete(`${baseUrl}/${id}`, {
+            headers: {
+                'Authorization': `${tokenType} ${token}`,
+            }
+        })
+        return response;
+    } catch (error) {
+        // throw error;
         console.log(error)
     }
 }
 
-export {getAllUsers};
-
-// 'http://51.38.51.187:5050/api/v1/users' \
-// -H 'accept: application/json' \
-// -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVjZTZlMjQyLTY3OTQtNDM0Mi05OTk3LTk0MzgxN2EzZjQzMiIsImRhdGUiOiIyMDIyLTEwLTAxVDE0OjM1OjM5LjYxM1oiLCJpYXQiOjE2NjQ2MzQ5MzksImV4cCI6MTY2NDcyMTMzOX0.87hFZvdDkKwzYuHSSN7ei0AjAIu-ryW_J1wYBniAvbI'
+export {getMeUser, getAllUsers, updateUser, deleteUser};

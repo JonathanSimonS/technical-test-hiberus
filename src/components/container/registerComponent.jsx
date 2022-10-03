@@ -10,13 +10,8 @@ const RegisterComponent = () => {
         e.preventDefault();
 
         register(email, password, name, surname).then((result) => {
-            
-            // guardar token en storage
-            // window.localStorage.setItem("token",result.accessToken)
-            
-            console.log(result)
-            toast.success('Successfully sign up')
-            
+            toast.success('Successfully sign up, sign in now ')            
+        
         }).catch((err) => {
             toast.error(err)
         });

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Modal } from "react-bootstrap";
 
-const LoginForm = ({handlerLogin}) => {
+const LoginForm = ({email, password, setPassword, setEmail, handlerLogin}) => {
 
     // Modal
     const [show, setShow] = useState(false);
@@ -9,8 +9,6 @@ const LoginForm = ({handlerLogin}) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
 
     return (
         <>

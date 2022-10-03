@@ -4,16 +4,17 @@ import Logout from '../components/pure/logout'
 import UserList from '../components/container/userList';
 import Footer from '../components/pure/footer';
 
-const UserPage = () => {
+const UserPage = ({token, setToken}) => {
+    
     return (
         <div>
             <Header></Header>
-            <div className='row m-0 justify-content-end'>
+            <div className='row m-0 justify-content-center'>
 
-                <div className='col-lg-10 m-0'>
-                    <UserList></UserList>
+                <div className='col-9 m-0'>
+                    <UserList token={token} setToken={setToken}></UserList>
                 </div>
-                <div className='col-lg-1 mt-5 '>
+                <div className='col-1 mt-5 justify-content-center'>
                     <Logout></Logout>
                 </div>
             </div>

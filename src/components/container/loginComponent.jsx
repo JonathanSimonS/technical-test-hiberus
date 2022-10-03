@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import LoginForm from '../pure/forms/loginForm';
 import {login} from '../../services/authService'
 import toast, { Toaster } from 'react-hot-toast';
@@ -6,20 +6,17 @@ import { useNavigate } from "react-router-dom";
 
 const LoginComponent = () => {
 
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handlerLogin = (e, email, password) => {
+    const handlerLogin = async (e, email, password) => {
         e.preventDefault();
+
         login(email, password)
         .then((result) => {
-            toast.success('Successfully login')
-        
-            // guardar token en storage
-            window.localStorage.setItem("token",JSON.stringify(result))
-            
-            console.log(result)
+            window.localStorage.setItem("token",result.accessToken)
             navigate("/user");
-
         }).catch((err) => {
             toast.error(err)
         });
@@ -28,7 +25,7 @@ const LoginComponent = () => {
     return (
         <div className='h-100 d-flex text-start justify-content-center flex-column'>
             <Toaster />
-            <LoginForm handlerLogin={handlerLogin}></LoginForm>            
+            <LoginForm email={email} password={password} setPassword={setPassword} setEmail={setEmail} handlerLogin={handlerLogin}></LoginForm>
         </div>
     );
 }

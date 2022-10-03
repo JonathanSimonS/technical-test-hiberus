@@ -12,7 +12,9 @@ const Router = () => {
         <div>
             <Routes>
                 <Route
+                    exact
                     path="/"
+                
                     element={
                         <HomePage/>
                         // userActive
@@ -29,7 +31,6 @@ const Router = () => {
                 <Route 
                     path="*" 
                     element={<ErrorComponent />} />
-
             </Routes>
 
         </div>
