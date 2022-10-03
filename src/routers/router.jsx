@@ -2,10 +2,11 @@ import React from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from '../pages/homePage';
 import UserPage from '../pages/userPage';
+import ErrorComponent from '../pages/errorPage';
 
 const Router = () => {
     
-    const userActive = false;
+    // const userActive = false;
     
     return (
         <div>
@@ -13,9 +14,10 @@ const Router = () => {
                 <Route
                     path="/"
                     element={
-                        userActive
-                        ? <Navigate replace to="user"/>
-                        : <HomePage/>
+                        <HomePage/>
+                        // userActive
+                        // ? <Navigate replace to="user"/>
+                        // : <HomePage/>
                     }
                 />
                 <Route
@@ -24,7 +26,12 @@ const Router = () => {
                         <UserPage/>
                     }
                 />
+                <Route 
+                    path="*" 
+                    element={<ErrorComponent />} />
+
             </Routes>
+
         </div>
     );
 }
