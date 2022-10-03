@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import User from '../pure/user';
-import {deleteUser, getAllUsers, getMeUser, updateUser} from '../../services/userService';
+import {deleteUser, getAllUsers,  updateUser} from '../../services/userService';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 
@@ -18,42 +18,56 @@ const UserList = () => {
                     }).catch((err) => {
                         console.log(err);
                     });
-                    
     }, [token]);
 
     const handlerEdit = (e, id, email, password, name, surname) => {
         e.preventDefault()
         
         updateUser(token, id, email, password, name, surname)
-        .then((result) => {
-            toast.success('User upgraded successfully')
+        .then(() => {
+            
+            // ! Update this
+            window.location.reload() 
 
-            console.log(result)
-    
+            toast.success('User upgraded successfully',
+            {   
+                style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+                },
+            })
         }).catch((err) => {
             toast.error(err)
         });
     }
 
-    const handlerDelete = (id) => {
+
+    const handlerDelete = (e, id) => {
+        e.preventDefault()
+
         deleteUser(token, id)
-        .then((result) => {
-            console.log(result)
+        .then(() => {
+            // create copy of array without deleted user
+            setUsers(users => users.filter(user => user.id !== id));
+            toast('User delete!!',
+                {   icon: '👏',
+                    style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#fff',
+                    },
+                }
+            );
         }).catch((err) => {
-            console.log(id)
             console.log(err)
         }); 
     }
 
-    const goHome = () => {
-        window.localStorage.removeItem("token")
-        navigate("/")        
-    }
-
     return (
-        <div className='container-fluid text-center'>
+        <div className='container-fluid text-center mb-3'>
             <h2 className='p-2'>Users list</h2>            
-            <Toaster />
+            <Toaster/>
             <div className='row m-0'>
                 <div className='col-3'>
                     <span className='p-3'>Total users: { users.length } </span>
@@ -63,12 +77,7 @@ const UserList = () => {
                 </div>
                 <div className='col-4'>
                     <input type='text' className=' d-inline form-control' placeholder='Search user'></input>
-                </div>
-
-                { users.length===0 
-                    ? <span className='p-3' style={{cursor:'pointer',color:'blue'}} onClick={goHome}> Go to home to log in and see users </span>
-                    : '' }
-                
+                </div>       
             </div>
             {/* mapeo */}
             <div className="row m-0 ">

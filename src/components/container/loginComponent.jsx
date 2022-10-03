@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import LoginForm from '../pure/forms/loginForm';
 import {login} from '../../services/authService'
 import toast, { Toaster } from 'react-hot-toast';
@@ -15,10 +15,17 @@ const LoginComponent = () => {
 
         login(email, password)
         .then((result) => {
-            window.localStorage.setItem("token",result.accessToken)
+            window.localStorage.setItem("token",result.accessToken);
             navigate("/user");
         }).catch((err) => {
-            toast.error(err)
+            toast.error(err,
+            {   
+                style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+                },
+            })
         });
     }
 

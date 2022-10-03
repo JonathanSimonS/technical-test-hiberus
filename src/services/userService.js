@@ -2,7 +2,7 @@ import axios from 'axios';
 const baseUrl = 'http://51.38.51.187:5050/api/v1/users'
 const tokenType = 'Bearer'
 
-const getMeUser  = async (token) =>{
+const getMeUser = async (token) =>{
     try {
         const response = await axios.get(`${baseUrl}/me`, {
             headers: {
@@ -37,12 +37,11 @@ const getAllUsers  = async (token) =>{
  * @param {Object} token - User access token
  * @param {string} id - User ID to edit
  * @param {string} email - User email to edit
- * @param {string} password - User password to edit
  * @param {string} name - User name to edit
  * @param {string} surname - User surname to edit
  * @returns Update user
  */
-const updateUser = async (token, id, email, password, name, surname) => {
+const updateUser = async (token, id, email, name, surname) => {
     
     const options = {
         method: 'PUT',
@@ -52,15 +51,12 @@ const updateUser = async (token, id, email, password, name, surname) => {
         },
         data: {
             email: email,
-            password: password,
             name: name,
             surname: surname,
             id: id
         }
     };
-
-    axios.request(options).then(function (response) {
-        console.log(response.data);
+    axios.request(options).then(function () {
     }).catch(function (error) {
         console.error(error);
     });
@@ -72,17 +68,19 @@ const updateUser = async (token, id, email, password, name, surname) => {
  * @param {string} id - User ID to delete
  */
 const deleteUser = async (token, id) => {
-    try {
-        const response = await axios.delete(`${baseUrl}/${id}`, {
-            headers: {
-                'Authorization': `${tokenType} ${token}`,
-            }
-        })
-        return response;
-    } catch (error) {
-        // throw error;
-        console.log(error)
-    }
+
+    const options = {
+        method: 'DELETE',
+        url: `${baseUrl}/${id}`,
+        headers: {
+          Authorization: `${tokenType} ${token}`
+        }
+      };
+      axios.request(options).then(function (response) {
+        console.log(response.data);
+      }).catch(function (error) {
+        console.error(error);
+      });
 }
 
 export {getMeUser, getAllUsers, updateUser, deleteUser};

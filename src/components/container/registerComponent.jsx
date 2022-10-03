@@ -10,10 +10,24 @@ const RegisterComponent = () => {
         e.preventDefault();
 
         register(email, password, name, surname).then((result) => {
-            toast.success('Successfully sign up, sign in now ')            
+            toast.success('Successfully sign up, sign in now ',
+            {   
+                style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+                },
+            })           
         
         }).catch((err) => {
-            toast.error(err)
+            toast.error(err,
+                {   
+                    style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#fff',
+                    },
+            })
         });
     }
 

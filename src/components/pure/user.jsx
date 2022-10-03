@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Button, Modal } from "react-bootstrap";
 
-const User = ({index, user,  handlerDelete, handlerEdit}) => {
+const User = ({index, user, handlerDelete, handlerEdit}) => {
 
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
 
@@ -16,7 +15,7 @@ const User = ({index, user,  handlerDelete, handlerEdit}) => {
     const handleShowDelete = () => setShowDelete(true);
     const handleCloseEdit = () => setShowEdit(false);
     const handleShowEdit = () => setShowEdit(true);
-
+    
 
     return (
         <>
@@ -38,12 +37,12 @@ const User = ({index, user,  handlerDelete, handlerEdit}) => {
                 </Modal.Header>
                 <Modal.Body >
                     <Form onSubmit={e => handlerDelete(e, user.id)}>
-                        <Form.Label>Do you want to delete <strong>{user.email} {user.id}</strong> from the database?</Form.Label>
+                        <Form.Label>Do you want to delete <strong>{user.email}</strong> from the database?</Form.Label>
                         <Form.Group className="mt-3 mb-2 text-center">
                             <Button onClick={handleCloseDelete} className='rounded-5 w-25 m-1' variant="dark">
                                 Cancel
                             </Button>
-                            <Button className='rounded-5 w-25 m-1' variant="danger" type="submit">
+                            <Button className='rounded-5 w-25 m-1' variant="danger" type="submit" onClick={handleCloseDelete}>
                                 Delete
                             </Button>
                         </Form.Group>
@@ -56,7 +55,7 @@ const User = ({index, user,  handlerDelete, handlerEdit}) => {
                     <Modal.Title >Edit user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
-                    <Form onSubmit={ e => {handlerEdit(e, user.id, email, password, name, surname)} }>
+                    <Form onSubmit={ e => {handlerEdit(e, user.id, email, name, surname)} }>
                     <Form.Text className="text-muted mt-3">
                         You are editing user <strong>{user.email}</strong>
                     </Form.Text>
@@ -72,28 +71,6 @@ const User = ({index, user,  handlerDelete, handlerEdit}) => {
                             />
                             <Form.Label>Email</Form.Label>
                         </Form.Group>
-                        <Form.Group className="mb-3 form-floating">
-                            <Form.Control
-                                id='password'
-                                type="password"
-                                value={password}
-                                placeholder='****'
-                                required
-                                onChange={({target}) => {setPassword(target.value)}}
-                            />
-                            <Form.Label>Password</Form.Label>
-                        </Form.Group>
-                        {/* <Form.Group className="mb-3 form-floating">
-                            <Form.Control
-                                id='passwordConfirm'
-                                type="password"
-                                placeholder='****'
-                                value={passwordConfirm}
-                                onChange={({target}) => {setPasswordConfirm(target.value)}}
-                                required
-                            />
-                            <Form.Label for='passwordConfirm'>Password confirm</Form.Label>
-                        </Form.Group> */}
                         <Form.Group className="mb-3 form-floating">
                             <Form.Control
                                 id="name"
@@ -121,7 +98,7 @@ const User = ({index, user,  handlerDelete, handlerEdit}) => {
                             <Button onClick={handleCloseEdit} className='rounded-5 w-25 m-1' variant="dark">
                                 Cancel
                             </Button>
-                            <Button className='rounded-5 w-25 m-1' variant="danger" type="submit">
+                            <Button className='rounded-5 w-25 m-1' variant="danger" type="submit" onClick={handleCloseEdit}>
                                 Edit
                             </Button>
                         </Form.Group>
