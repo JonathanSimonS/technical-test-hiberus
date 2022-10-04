@@ -84,17 +84,12 @@ const UserList = () => {
 
     const seacher = (e) => {
         setSearch(e.target.value)
-        // console.log(e.target.value)
     }
 
-    let resultSearch = [];
-    if(!search){
-        resultSearch = users
-    } else {
-        resultSearch = users.filter((user) =>
-            user.email.toLowerCase().includes(search.toLocaleLowerCase()))
-    }
-
+    const resultSearch = !search 
+                            ? users 
+                            : users.filter((user) => user.email.toLowerCase()
+                                .includes(search.toLocaleLowerCase()))
 
 
     return (

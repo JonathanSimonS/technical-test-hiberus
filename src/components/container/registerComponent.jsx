@@ -6,29 +6,42 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const RegisterComponent = () => {
 
-    const handlerRegister = (e, email, password, name, surname) => {
+    const handlerRegister = (e, email, password, confirmPassword, name, surname) => {
         e.preventDefault();
 
-        register(email, password, name, surname).then((result) => {
-            toast.success('Successfully sign up, sign in now ',
-            {   
-                style: {
-                borderRadius: '10px',
-                background: '#333',
-                color: '#fff',
-                },
-            })           
-        
-        }).catch((err) => {
-            toast.error(err,
+        // check password
+        if(password!== confirmPassword) {
+            toast.error('Passwords must match',
                 {   
                     style: {
-                    borderRadius: '10px',
-                    background: '#333',
-                    color: '#fff',
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
                     },
-            })
-        });
+                })
+        } else {
+
+            register(email, password, name, surname).then((result) => {
+                toast.success('Successfully sign up, sign in now ',
+                {   
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                })           
+                
+            }).catch((err) => {
+                toast.error(err,
+                    {   
+                        style: {
+                            borderRadius: '10px',
+                            background: '#333',
+                            color: '#fff',
+                        },
+                    })
+                });
+        }
     }
 
     return (
