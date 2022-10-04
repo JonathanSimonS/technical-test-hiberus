@@ -40,6 +40,16 @@
 /* Global class */
 .modal-container{
   background-image: url(assets/logo-avengers-hiberus.png);
-  background-size: cover;
-  background-position: top;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (max-width:700px) {
+  .modal-container{
+    background-image: url(assets/logo-avengers-hiberus.png);
+    background-size: contain;
+    background-position: bottom;
+    background-repeat: no-repeat;
+  }
 }

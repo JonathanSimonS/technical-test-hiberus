@@ -7,12 +7,11 @@ import Logout from '../pure/logout';
 const UserList = () => {
 
     const [users, setUsers] = useState([]);
-
-    const userLogged = window.localStorage.getItem("loggedUser");
-    const parserUserLogger = JSON.parse(userLogged);
+    
+    let userLogged = window.localStorage.getItem("loggedUser");
+    let parserUserLogger = JSON.parse(userLogged);
 
     const token = window.localStorage.getItem("token");
-
 
     useEffect(() => {
         !token  ? setUsers([])
@@ -24,26 +23,41 @@ const UserList = () => {
                     });
     }, [token]);
 
-    const handlerEdit = (e, id, email, password, name, surname) => {
+
+    const handlerEdit = (e, id, email, name, surname) => {
         e.preventDefault()
 
-        updateUser(token, id, email, password, name, surname)
+        updateUser(token, id, email,  name, surname)
         .then((result) => {
-            
-            window.localStorage.setItem("loggedUser", {
+
+            // save update user
+            const userUpdate = JSON.stringify({
                 email: email,
+                id: id,
                 name: name,
                 surname: surname,
-                id: id
             });
 
-            console.log(result)
+            // array with update user 
+            setUsers(users.map(user => (user.id === id ? JSON.parse(userUpdate) : user)))
+
+            // update welcome name
+            if(JSON.parse(userLogged).id === JSON.parse(userUpdate).id){
+                window.localStorage.setItem("loggedUser", userUpdate)
+            }
+            
+            toast.success('Update user successfully',
+            {   
+                style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+                },
+            })   
 
         }).catch((err) => {
             toast.error(err)
         });
-
-        
 
      }
 
@@ -77,7 +91,7 @@ const UserList = () => {
                     <span className='p-3'>Total users: <strong>{ users.length }</strong> </span>
                 </div>
                 <div className='col-lg-3 mt-1'>
-                    <span className='p-3'> Welcome <strong>{userLogged && (parserUserLogger.name +' '+ parserUserLogger.surname)}</strong></span>
+                    <span className='p-3'> Welcome <strong>{userLogged && (parserUserLogger.name)}</strong></span>
                 </div>
                 <div className='col-lg-3 mt-1'>
                     <input type='text' className=' d-inline form-control' placeholder='Search user'></input>

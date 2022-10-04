@@ -22,6 +22,15 @@ const login = async (email, password) => {
     }
 }
 
+
+
+/**
+ * 
+ * @param {string} email 
+ * @param {string} password 
+ * @param {string} name 
+ * @param {string} surname 
+ */
 const register = async (email, password, name, surname) => {
     try {
         const response = await axios
@@ -37,6 +46,5 @@ const register = async (email, password, name, surname) => {
         throw error.response.data.message;
       }
 }
-
 
 export { login, register };

@@ -2,6 +2,11 @@ import axios from 'axios';
 const baseUrl = 'http://51.38.51.187:5050/api/v1/users'
 const tokenType = 'Bearer'
 
+/**
+ * 
+ * @param {string} token - User access token 
+ * @returns All logged user data
+ */
 const getMeUser = async (token) =>{
     try {
         const response = await axios.get(`${baseUrl}/me`, {
@@ -17,6 +22,11 @@ const getMeUser = async (token) =>{
     }
 }
 
+/**
+ * 
+ * @param {string} token - User access token
+ * @returns An array of User
+ */
 const getAllUsers  = async (token) =>{
     try {
         const response = await axios.get(`${baseUrl}`, {
@@ -57,7 +67,7 @@ const updateUser = async (token, id, email, name, surname) => {
         }
     };
     axios.request(options).then(function (response) {
-        console.log(response.data);
+
     }).catch(function (error) {
         console.error(error);
     });
