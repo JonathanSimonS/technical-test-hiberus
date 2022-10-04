@@ -7,7 +7,7 @@ import Logout from '../pure/logout';
 const UserList = () => {
 
     const [users, setUsers] = useState([]);
-    
+    const [search, setSearch] = useState('');
     let userLogged = window.localStorage.getItem("loggedUser");
     let parserUserLogger = JSON.parse(userLogged);
 
@@ -82,6 +82,21 @@ const UserList = () => {
         });
     }
 
+    const seacher = (e) => {
+        setSearch(e.target.value)
+        // console.log(e.target.value)
+    }
+
+    let resultSearch = [];
+    if(!search){
+        resultSearch = users
+    } else {
+        resultSearch = users.filter((user) =>
+            user.email.toLowerCase().includes(search.toLocaleLowerCase()))
+    }
+
+
+
     return (
         <div className='container mb-3'>
             <h2 className='p-2'>Users list</h2>
@@ -94,7 +109,7 @@ const UserList = () => {
                     <span className='p-3'> Welcome <strong>{userLogged && (parserUserLogger.name)}</strong></span>
                 </div>
                 <div className='col-lg-3 mt-1'>
-                    <input type='text' className=' d-inline form-control' placeholder='Search user'></input>
+                    <input onChange={seacher} value={search}  type='text' className=' d-inline form-control' placeholder='Search email'></input>
                 </div>
                 <div className='col-lg-3 mt-1'>
                     <Logout></Logout>
@@ -102,7 +117,7 @@ const UserList = () => {
             </div>
             {/* mapeo */}
             <div className="row m-0 col-12">
-                {users.map((user, index) => (
+                {resultSearch.map((user, index) => (
                     <User key={index} user={user} handlerDelete={handlerDelete} handlerEdit={handlerEdit}></User>
                 ))}
             </div>
