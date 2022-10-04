@@ -25,7 +25,7 @@ const LoginForm = ({email, password, setPassword, setEmail, handlerLogin}) => {
                 </div>
             </div>
         
-            <Modal show={show} onHide={handleClose} className='modal-container'>
+            <Modal show={show} onHide={handleClose} className='modal-container back-modal'>
                 <Modal.Header closeButton className="border-0">
                     <Modal.Title>Sign in</Modal.Title>
                 </Modal.Header>

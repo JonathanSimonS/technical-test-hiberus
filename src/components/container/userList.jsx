@@ -3,6 +3,7 @@ import User from '../pure/user';
 import {deleteUser, getAllUsers,  updateUser} from '../../services/userService';
 import toast, { Toaster } from 'react-hot-toast';
 import Logout from '../pure/logout';
+import ScrollToTop from "react-scroll-to-top";
 
 const UserList = () => {
 
@@ -93,23 +94,32 @@ const UserList = () => {
 
 
     return (
-        <div className='container mb-3'>
+        <div className='container mb-4'>
             <h2 className='p-2'>Users list</h2>
             <Toaster/>
-            <div className='row m-0 mt-4 mb-4 '>
-                <div className='col-lg-3'>
+            <div className='row m-0 mt-3 mb-2 justify-content-center d-flex'>
+                <div className='col-lg-4'>
                     <span className='p-3'>Total users: <strong>{ users.length }</strong> </span>
                 </div>
-                <div className='col-lg-3 mt-1'>
-                    <span className='p-3'> Welcome <strong>{userLogged && (parserUserLogger.name)}</strong></span>
+                <div className='col-lg-4 mt-1' >
+                    <span className='p-3'> Welcome <strong>{userLogged && (parserUserLogger.name +' '+ parserUserLogger.surname)}</strong></span>
                 </div>
-                <div className='col-lg-3 mt-1'>
-                    <input onChange={seacher} value={search}  type='text' className=' d-inline form-control' placeholder='Search email'></input>
-                </div>
-                <div className='col-lg-3 mt-1'>
+                <div className='col-lg-4 mt-1'>
                     <Logout></Logout>
                 </div>
+                <div className='col-lg-6 mt-3 '>
+                    <div className="input-group">
+                        <input className="form-control rounded-0 rounded-start d-inline form-control" onChange={seacher} value={search}  type='text' placeholder='Search email' />
+                        <div className="input-group-append">
+                            <button className="btn btn-secondary rounded-0 rounded-end" type="button">
+                                    <i className='bi bi-eraser-fill' title='Clean search' onClick={() => setSearch('')} style={{ color: 'white' }}></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <ScrollToTop smooth  color='black'/>
+
             {/* mapeo */}
             <div className="row m-0 col-12">
                 {resultSearch.map((user, index) => (

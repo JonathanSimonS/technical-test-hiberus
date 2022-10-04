@@ -4,7 +4,7 @@ const baseUrl = 'http://51.38.51.187:5050/api/v1/auth';
 /**
  * 
  * @param {string} email - User email to login 
- * @param {string} password - User email to login
+ * @param {string} password - User password to login
  * @returns JWT Session Token
  */
 const login = async (email, password) => {
@@ -22,14 +22,12 @@ const login = async (email, password) => {
     }
 }
 
-
-
 /**
  * 
- * @param {string} email 
- * @param {string} password 
- * @param {string} name 
- * @param {string} surname 
+ * @param {string} email - User email 
+ * @param {string} password  - User password to login
+ * @param {string} name - User name to login
+ * @param {string} surname - User passsurnameword to login
  */
 const register = async (email, password, name, surname) => {
     try {

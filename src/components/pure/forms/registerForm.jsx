@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Modal } from "react-bootstrap";
 
 const RegisterForm = ({handlerRegister}) => {
@@ -9,17 +9,6 @@ const RegisterForm = ({handlerRegister}) => {
 
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
-
-    // password check
-    const passwordRef = useRef('');
-    const confirmPasswordRef = useRef('');
-
-    // function checkPassword(){
-    //     const password = passwordRef.current.value;
-    //     const confirmPassword = confirmPasswordRef.current.value;
-    
-    //     return password===confirmPassword;
-    // }
 
     // modal
     const [show, setShow] = useState(false);
@@ -38,7 +27,7 @@ const RegisterForm = ({handlerRegister}) => {
                 </div>
             </div>
         
-            <Modal show={show} onHide={handleClose} className='modal-container'>
+            <Modal show={show} onHide={handleClose} className='modal-container back-modal'>
                 <Modal.Header closeButton className="border-0">
                     <Modal.Title>Create your account</Modal.Title>
                 </Modal.Header>
@@ -60,7 +49,6 @@ const RegisterForm = ({handlerRegister}) => {
                             <Form.Control
                                 id='password'
                                 type="password"
-                                ref={passwordRef}
                                 value={password}
                                 placeholder='****'
                                 required
@@ -74,19 +62,16 @@ const RegisterForm = ({handlerRegister}) => {
                                 type="password"
                                 placeholder='****'
                                 value={confirmPassword}
-                                ref={confirmPasswordRef}
                                 onChange={({target}) => {setConfirmPassword(target.value)}}
-
                                 required
                             />
-                            <Form.Label for='passwordConfirm'>Password confirm</Form.Label>
+                            <Form.Label>Password confirm</Form.Label>
                         </Form.Group>
                         <Form.Group className="mb-3 form-floating">
                             <Form.Control
                                 id="name"
                                 type="text"
                                 value={name}
-                                // onChange={handleChangeUser}
                                 placeholder="Name"
                                 required
                                 onChange={({target}) => {setName(target.value)}}
@@ -109,7 +94,6 @@ const RegisterForm = ({handlerRegister}) => {
                                 Sign up
                             </Button>
                         </Form.Group>
-                        
                     </Form>
                 </Modal.Body>
             </Modal>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Modal } from "react-bootstrap";
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 const Logout = () => {
 
@@ -23,9 +23,6 @@ const Logout = () => {
         <>
             <div>
                 <Toaster />
-                {/* <div className='d-none d-md-inline rounded-pill role-pointer' title='Logout' onClick={handleShow}>
-                    <img className='' src={thor} alt='thor button' style={{width:'4rem', cursor:'pointer'}} title='Logout' onClick={handleShow}/>
-                </div> */}
                 <button className='btn btn-danger d-none d-md-inline' title='Logout' onClick={handleShow}>Logout</button>
                 <button className='btn btn-danger d-md-none rounded-circle' title='Logout' onClick={handleShow}>
                     <i className='bi bi-box-arrow-left ' style={{ color: 'white' }}></i> 
@@ -33,7 +30,7 @@ const Logout = () => {
             </div>
         
             {/* style in App.css */}
-            <Modal show={show} onHide={handleClose} >
+            <Modal show={show} onHide={handleClose} className='back-modal'>
                 <Modal.Header closeButton className="border-0">
                     <Modal.Title >Are you sure?</Modal.Title>
                 </Modal.Header>
