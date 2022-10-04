@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import { Form, Button, Modal } from "react-bootstrap";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Logout = () => {
 
@@ -10,27 +10,30 @@ const Logout = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const navigate = useNavigate();
-
     // Call service logout
     const handlerLogout = () => {
 
         window.localStorage.removeItem("token")
-        navigate("/")        
+        window.localStorage.removeItem("loggedUser")
+        
     }
 
     return (
         
         <>
             <div>
+                <Toaster />
+                {/* <div className='d-none d-md-inline rounded-pill role-pointer' title='Logout' onClick={handleShow}>
+                    <img className='' src={thor} alt='thor button' style={{width:'4rem', cursor:'pointer'}} title='Logout' onClick={handleShow}/>
+                </div> */}
                 <button className='btn btn-danger d-none d-md-inline' title='Logout' onClick={handleShow}>Logout</button>
-
-                <button className='btn btn-danger d-md-none' title='Logout' onClick={handleShow}>
-                    <i className='bi bi-box-arrow-left fs-4' style={{ color: 'white' }}></i> 
+                <button className='btn btn-danger d-md-none rounded-circle' title='Logout' onClick={handleShow}>
+                    <i className='bi bi-box-arrow-left ' style={{ color: 'white' }}></i> 
                 </button>
             </div>
         
-            <Modal show={show} onHide={handleClose}>
+            {/* style in App.css */}
+            <Modal show={show} onHide={handleClose} >
                 <Modal.Header closeButton className="border-0">
                     <Modal.Title >Are you sure?</Modal.Title>
                 </Modal.Header>

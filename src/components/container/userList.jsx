@@ -2,19 +2,23 @@ import React, {useState, useEffect} from 'react';
 import User from '../pure/user';
 import {deleteUser, getAllUsers,  updateUser} from '../../services/userService';
 import toast, { Toaster } from 'react-hot-toast';
-import { useNavigate } from "react-router-dom";
+import Logout from '../pure/logout';
 
 const UserList = () => {
 
     const [users, setUsers] = useState([]);
+
+    const userLogged = window.localStorage.getItem("loggedUser");
+    const parserUserLogger = JSON.parse(userLogged);
+
     const token = window.localStorage.getItem("token");
 
-    const navigate = useNavigate();
 
     useEffect(() => {
-        !token  ? setUsers([]) 
+        !token  ? setUsers([])
                 : getAllUsers(token).then((result) => {
                         setUsers(result)
+                        
                     }).catch((err) => {
                         console.log(err);
                     });
@@ -22,26 +26,26 @@ const UserList = () => {
 
     const handlerEdit = (e, id, email, password, name, surname) => {
         e.preventDefault()
-        
-        updateUser(token, id, email, password, name, surname)
-        .then(() => {
-            
-            // ! Update this
-            window.location.reload() 
 
-            toast.success('User upgraded successfully',
-            {   
-                style: {
-                borderRadius: '10px',
-                background: '#333',
-                color: '#fff',
-                },
-            })
+        updateUser(token, id, email, password, name, surname)
+        .then((result) => {
+            
+            window.localStorage.setItem("loggedUser", {
+                email: email,
+                name: name,
+                surname: surname,
+                id: id
+            });
+
+            console.log(result)
+
         }).catch((err) => {
             toast.error(err)
         });
-    }
 
+        
+
+     }
 
     const handlerDelete = (e, id) => {
         e.preventDefault()
@@ -61,26 +65,29 @@ const UserList = () => {
             );
         }).catch((err) => {
             console.log(err)
-        }); 
+        });
     }
 
     return (
-        <div className='container-fluid text-center mb-3'>
-            <h2 className='p-2'>Users list</h2>            
+        <div className='container mb-3'>
+            <h2 className='p-2'>Users list</h2>
             <Toaster/>
-            <div className='row m-0'>
-                <div className='col-3'>
-                    <span className='p-3'>Total users: { users.length } </span>
+            <div className='row m-0 mt-4 mb-4 '>
+                <div className='col-lg-3'>
+                    <span className='p-3'>Total users: <strong>{ users.length }</strong> </span>
                 </div>
-                <div className='col-4'>
-                    {/* <span className='p-3'> Welcome <strong>{userLogged.name}</strong></span> */}
+                <div className='col-lg-3 mt-1'>
+                    <span className='p-3'> Welcome <strong>{userLogged && (parserUserLogger.name +' '+ parserUserLogger.surname)}</strong></span>
                 </div>
-                <div className='col-4'>
+                <div className='col-lg-3 mt-1'>
                     <input type='text' className=' d-inline form-control' placeholder='Search user'></input>
-                </div>       
+                </div>
+                <div className='col-lg-3 mt-1'>
+                    <Logout></Logout>
+                </div>
             </div>
             {/* mapeo */}
-            <div className="row m-0 ">
+            <div className="row m-0 col-12">
                 {users.map((user, index) => (
                     <User key={index} user={user} handlerDelete={handlerDelete} handlerEdit={handlerEdit}></User>
                 ))}

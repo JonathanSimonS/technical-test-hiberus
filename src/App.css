@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+/* Global class */
+.modal-container{
+  background-image: url(assets/logo-avengers-hiberus.png);
+  background-size: cover;
+  background-position: top;
+}

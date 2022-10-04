@@ -26,7 +26,7 @@ const RegisterForm = ({handlerRegister}) => {
             </div>
         </div>
     
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} className='modal-container'>
             <Modal.Header closeButton className="border-0">
                 <Modal.Title>Create your account</Modal.Title>
             </Modal.Header>

@@ -56,7 +56,8 @@ const updateUser = async (token, id, email, name, surname) => {
             id: id
         }
     };
-    axios.request(options).then(function () {
+    axios.request(options).then(function (response) {
+        console.log(response.data);
     }).catch(function (error) {
         console.error(error);
     });

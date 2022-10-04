@@ -7,6 +7,9 @@ const User = ({index, user, handlerDelete, handlerEdit}) => {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
 
+    const userLogged = window.localStorage.getItem("loggedUser")
+    const parserUserLogger = JSON.parse(userLogged);
+
     // Modal
     const [showDelete, setShowDelete] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
@@ -15,19 +18,32 @@ const User = ({index, user, handlerDelete, handlerEdit}) => {
     const handleShowDelete = () => setShowDelete(true);
     const handleCloseEdit = () => setShowEdit(false);
     const handleShowEdit = () => setShowEdit(true);
-    
+
+    // styles for login user
+    const activeUser = {
+        backgroundColor: '#242935',
+        color: 'white',
+        fontWeight : 'bolder'
+    }
+    const noActiveUser = {
+        color: 'black',
+        backgroundColor: 'whitesmoke',
+    }
 
     return (
         <>
-            <div id={index} className="card col-xl-2 col-lg-3 col-md-4 col-sm-6 border-0 mt-3 m-0 rounded-5" >
-                <div className="card-body border-0 h-25 bg-light rounded-top">
-                    <h5 className="card-title">{user.name} {user.surname}</h5>
-                    <p className="card-text ">{user.email}</p>
-                    {/* <p className="card-text ">{user.id === userLogged.id ? 'OK' : 'NO'}</p> */}
+            <div id={index} className="card col-lg-3 col-md-4 col-sm-6 border-0 mt-3 m-0 rounded-5" >
+                <div className="card-body h-25 rounded-top "
+                    style={user.id === parserUserLogger.id ? activeUser : noActiveUser}>
+                    <h5 className="card-title ">{user.name} {user.surname}</h5>
+                    <samp className="card-text link-success">{user.email}</samp>
                 </div>
-                <div className="card-footer border-0  rounded-5 rounded-top ">
-                    <i onClick={handleShowEdit} title="Edit user" className="bi bi-pencil p-2" style={{cursor:'pointer'}}></i>
-                    <i onClick={handleShowDelete} title="Delete user" className="bi bi-trash p-2" style={{cursor:'pointer'}}></i>            
+                <div style={user.id === parserUserLogger.id ? activeUser : noActiveUser} className="card-footer border-0 rounded-bottom   ">
+                    <kbd className="m-1"><i onClick={handleShowEdit} title="Edit user" className="bi bi-pencil p-2" style={{cursor:'pointer'}}></i></kbd>
+                    {user.id !== parserUserLogger.id
+                        ? <kbd className="m-1"><i onClick={handleShowDelete} title="Delete user" className="bi bi-trash p-2" style={{cursor:'pointer'}}></i></kbd>
+                        : ''}
+
                 </div>
             </div>
 
@@ -60,11 +76,11 @@ const User = ({index, user, handlerDelete, handlerEdit}) => {
                         You are editing user <strong>{user.email}</strong>
                     </Form.Text>
                         <Form.Group className="mb-3 mt-3 form-floating">
-                            <Form.Control  
-                                id="email" 
-                                type="email" 
+                            <Form.Control
+                                id="email"
+                                type="email"
                                 value={email}
-                                placeholder="{user.email}" 
+                                placeholder="{user.email}"
                                 required
                                 autoFocus
                                 onChange={({target}) => {setEmail(target.value)}}

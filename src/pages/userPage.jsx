@@ -1,24 +1,19 @@
 import React from 'react';
 import Header from '../components/pure/header';
-import Logout from '../components/pure/logout'
 import UserList from '../components/container/userList';
 import Footer from '../components/pure/footer';
 
-const UserPage = ({token, setToken}) => {
+const UserPage = () => {
     
     return (
         <div>
             <Header></Header>
             <div className='row m-0 justify-content-center'>
-
-                <div className='col-9 m-0'>
-                    <UserList token={token} setToken={setToken}></UserList>
-                </div>
-                <div className='col-1 mt-5 justify-content-center'>
-                    <Logout></Logout>
+                <div className='col-lg-12 col-sm-9 m-0'>
+                    <UserList></UserList>
                 </div>
             </div>
-            <Footer></Footer>
+            <Footer className='sticky-bottom '></Footer>
         </div>
     );
 }

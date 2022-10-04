@@ -6,7 +6,8 @@ import ErrorComponent from '../pages/errorPage';
 
 const Router = () => {
     
-    // const userActive = false;
+    // use user data for route protection
+    const userLogged = window.localStorage.getItem("loggedUser");
     
     return (
         <div>
@@ -14,18 +15,18 @@ const Router = () => {
                 <Route
                     exact
                     path="/"
-                
                     element={
-                        <HomePage/>
-                        // userActive
-                        // ? <Navigate replace to="user"/>
-                        // : <HomePage/>
+                        userLogged
+                            ? <Navigate replace to="user"/>
+                            : <HomePage/>
                     }
                 />
                 <Route
                     path="user"
                     element={
-                        <UserPage/>
+                        userLogged
+                            ? <UserPage/>
+                            : <Navigate replace to="/"/>
                     }
                 />
                 <Route 

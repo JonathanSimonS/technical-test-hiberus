@@ -3,6 +3,7 @@ import LoginForm from '../pure/forms/loginForm';
 import {login} from '../../services/authService'
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
+import { getMeUser } from '../../services/userService';
 
 const LoginComponent = () => {
 
@@ -16,7 +17,17 @@ const LoginComponent = () => {
         login(email, password)
         .then((result) => {
             window.localStorage.setItem("token",result.accessToken);
-            navigate("/user");
+            
+            const token = window.localStorage.getItem("token");
+    
+            // get session user
+            getMeUser(token).then((result) => {
+                window.localStorage.setItem("loggedUser", JSON.stringify(result))
+                window.location.reload()
+            }).catch((err) => {
+                console.log(err)
+            });
+    
         }).catch((err) => {
             toast.error(err,
             {   
