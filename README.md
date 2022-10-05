@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# 💻 Prueba técnica Hiberus 🚀
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Curso Frontent - Héroes y heroínas 2022
 
-## Available Scripts
+La prueba consiste en realizar una página de login y registro con CRUD de usuarios, después de registrarnos y de iniciar sesión correctamente, la API nos devuelve un JWT, que nos autoriza a realizar las diferentes peticiones a la API.
 
-In the project directory, you can run:
+A partir de ahí podremos visionar a los usuarios de la base de datos y gestionar su información.
 
-### `npm start`
+<h2 align='center'> Herramientas utilizadas para desarrollar la prueba</h2>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<div align="center">
+    <img src="https://img.shields.io/badge/-React-grey?&style=for-the-badge&logo=react&logoColor=61DAFB" />
+    <img src="https://img.shields.io/badge/-javascript-F7DF1E?&style=for-the-badge&logo=javascript&logoColor=black" />
+    <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+    <img src="https://img.shields.io/badge/-css3-1572B6?&style=for-the-badge&logo=css3&logoColor=white" />
+    <img src="https://img.shields.io/badge/Bootstrap-38B2AC?style=for-the-badge&logo=bootstrap&logoColor=white" />
+    <img src="https://img.shields.io/badge/-VSCode-007ACC?&style=for-the-badge&logo=visual-studio-code&logoColor=white" />
+    <img src="https://img.shields.io/badge/-Git-F05032?&style=for-the-badge&logo=git&logoColor=white" /> 
+    <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" />
+</div>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🔨 Funcionalidades del proyecto
 
-### `npm test`
+- `Registro/Creación de usuarios`
+- `Login de usuario`
+- `Listado de usuarios`
+- `Actualización y borrado`
+- `Muestra información del usuario logado`
+- `Barra de búsqueda de usuarios mediante email`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## 🔧 Instalación 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* En el directorio del proyecto instalamos los paquetes necesarios con: 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+> npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Arrancamos la aplicación con:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+> npm start
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 💡 Decisiones tomadas durante el desarrollo
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- `1` - Estudio de la API para hacerme una idea de los componentes y servicios que tendría que utilizar y como se iban a comportar.
+- `2` - Diseñar la estructura de carpetas, los componentes los he dividido en *container* (componentes con funcionalidades extensas y llamadas a API) y *pure* (componentes puros, que apenas tienen funcionalidades). Las *páginas* contendrán componentes a renderizar condicionalmente, una carpeta para las *rutas* y otra con los *servicios*.
 
-### Making a Progressive Web App
+<div align='center'>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![Estructuración de carpetas](https://user-images.githubusercontent.com/56316451/193955113-70e56f31-833d-4912-85e2-89d00b2bde6b.png)
 
-### Advanced Configuration
+</div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- `3` - Creación del enrutado con rutas protegidas, para no tener acceso al listado sin estar logado ni volver a la *Home* si tienes una sesión abierta.
+- `4` - Creación de componentes con las funciones necesarias e implementación de los servicios.
+- `5` - Aplicar estilos globales, documentar servicios y hacer limpieza de  código.
 
-### Deployment
+## 🤔 Problemas/Dificultades encontrados y soluciones implementadas
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+* Al borrar un usuario los cambios no se efectuaban directamente, tenía que recargar la página manualmente.
+    - Lo conseguí filtrando el array original de usuarios con todos los usuario excepto el usuario borrado. 
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Al actualizar un usuario me pasaba igual, los cambios se efectuaban pero no se mostraban correctamente.
+    - Lo resolví haciendo un mapeo del array comparando los id del usuario ítem con el usuario actualizado.
+
+
+* Cuando se listaban los usuarios no me parecía lógico que pudieses borrar el mismo con el que habías iniciado sesión.
+    - Para resolverlo guardé al usuario logueado en el localStorage y apliqué un renderizado condicional, en vez de la opción de borrado, implementé un modal para ver sus datos.
+
+* Tuve problemas con las rutas, ya que no me redirigian ni las protegía correctamente.
+    - Asi que decidí crear un componente *router* en el que mediante el usuario logado y Navigate, si tienes la sesión iniciado no puedes ir a la página de *Home*, y si no la tienes no puedes acceder a ver la lista de usuarios.
+
+
+## ⏳Tiempo aproximado dedicado al desarrollo de la prueba técnica
+* Realizar el proyecto me llevó aproximadamente 3 días
