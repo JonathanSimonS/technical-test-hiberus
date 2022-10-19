@@ -1,6 +1,6 @@
 import axios from 'axios';
-const baseUrl = 'http://51.38.51.187:5050/api/v1/users'
-const tokenType = 'Bearer'
+const baseUrl = 'http://51.38.51.187:5050/api/v1/users';
+const tokenType = 'Bearer';
 
 /**
  * 

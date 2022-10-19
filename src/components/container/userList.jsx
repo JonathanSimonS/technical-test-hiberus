@@ -4,46 +4,49 @@ import {deleteUser, getAllUsers,  updateUser} from '../../services/userService';
 import toast, { Toaster } from 'react-hot-toast';
 import Logout from '../pure/logout';
 import ScrollToTop from "react-scroll-to-top";
+// redux toolkit
+import { useSelector, useDispatch } from 'react-redux';
+import { setLoggedUser } from '../../store/slices/loggedUser';
 
 const UserList = () => {
 
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState('');
-    let userLogged = window.localStorage.getItem("loggedUser");
-    let parserUserLogger = JSON.parse(userLogged);
 
-    const token = window.localStorage.getItem("token");
+    // hook Redux Toolkit
+    const dispatch = useDispatch();
+    const loggedUser = useSelector((state) => state.loggedUser); // value in store
+    const token = useSelector((state) => state.token); // value in store
 
     useEffect(() => {
         !token  ? setUsers([])
-                : getAllUsers(token).then((result) => {
+                : getAllUsers(token.accessToken).then((result) => {
                         setUsers(result)
                         
                     }).catch((err) => {
                     });
     }, [token]);
 
-
     const handlerEdit = (e, id, email, name, surname) => {
         e.preventDefault()
 
-        updateUser(token, id, email,  name, surname)
+        updateUser(token.accessToken, id, email,  name, surname)
         .then((result) => {
 
             // save update user
             const userUpdate = JSON.stringify({
                 email: email,
-                id: id,
                 name: name,
                 surname: surname,
+                id: id,
             });
 
             // array with update user 
             setUsers(users.map(user => (user.id === id ? JSON.parse(userUpdate) : user)))
 
             // update welcome name
-            if(JSON.parse(userLogged).id === JSON.parse(userUpdate).id){
-                window.localStorage.setItem("loggedUser", userUpdate)
+            if(loggedUser.id === JSON.parse(userUpdate).id){
+                dispatch(setLoggedUser(JSON.parse(userUpdate)));
             }
             
             toast.success('Update user successfully',
@@ -64,7 +67,7 @@ const UserList = () => {
     const handlerDelete = (e, id) => {
         e.preventDefault()
 
-        deleteUser(token, id)
+        deleteUser(token.accessToken, id)
         .then(() => {
             // create copy of array without deleted user
             setUsers(users => users.filter(user => user.id !== id));
@@ -100,7 +103,7 @@ const UserList = () => {
                     <span className='p-3'>Total users: <strong>{ users.length }</strong> </span>
                 </div>
                 <div className='col-lg-4 mt-1' >
-                    <span className='p-3'> Welcome <strong>{userLogged && (parserUserLogger.name +' '+ parserUserLogger.surname)}</strong></span>
+                    <span className='p-3'> Welcome <strong>{loggedUser && (loggedUser.name +' '+ loggedUser.surname)}</strong></span>
                 </div>
                 <div className='col-lg-4 mt-1'>
                     <Logout></Logout>

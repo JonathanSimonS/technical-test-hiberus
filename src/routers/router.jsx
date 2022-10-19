@@ -3,12 +3,13 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from '../pages/homePage';
 import UserPage from '../pages/userPage';
 import ErrorComponent from '../pages/errorPage';
+import { useSelector } from 'react-redux';
 
 const Router = () => {
-    
-    // use user data for route protection
-    const userLogged = window.localStorage.getItem("loggedUser");
-    
+
+    // use only id for conditional render
+    const loggedUserId = useSelector((state) => state.loggedUser.id) // value in store
+
     return (
         <div>
             <Routes>
@@ -16,7 +17,7 @@ const Router = () => {
                     exact
                     path="/"
                     element={
-                        userLogged
+                        loggedUserId !== ''
                             ? <Navigate replace to="user"/>
                             : <HomePage/>
                     }
@@ -24,7 +25,7 @@ const Router = () => {
                 <Route
                     path="user"
                     element={
-                        userLogged
+                        loggedUserId !== ''
                             ? <UserPage/>
                             : <Navigate replace to="/"/>
                     }

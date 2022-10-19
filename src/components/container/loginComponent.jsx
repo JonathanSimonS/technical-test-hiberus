@@ -3,25 +3,40 @@ import LoginForm from '../pure/forms/loginForm';
 import { login } from '../../services/authService'
 import toast, { Toaster } from 'react-hot-toast';
 import { getMeUser } from '../../services/userService';
+// redux toolkit
+import { useDispatch } from 'react-redux';
+import { setLoggedUser } from '../../store/slices/loggedUser';
+import { setToken } from '../../store/slices/token';
 
 const LoginComponent = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handlerLogin = async (email, password) => {
+    // hook Redux Toolkit
+    const dispatch = useDispatch();
 
+    const handlerLogin = async (email, password) => {
+        
         await login(email, password)
         .then((result) => {
-            window.localStorage.setItem("token",result.accessToken);
             
-            const token = window.localStorage.getItem("token");
-    
+            dispatch(setToken(result));
+            
             // get session user
-            getMeUser(token).then((result) => {
-                window.localStorage.setItem("loggedUser", JSON.stringify(result))
-                window.location.reload()
+            getMeUser(result.accessToken).then((resul) => {
+
+                dispatch(setLoggedUser(resul));
+
             }).catch((err) => {
+                toast.error(err,
+                    {   
+                        style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                        },
+                    })
             });
     
         }).catch((err) => {

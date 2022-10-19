@@ -76,12 +76,12 @@ const LoginForm = ({setPassword, setEmail, handlerLogin}) => {
                             <Form >
                                 <FormGroup className="mb-3 form-floating">
                                     <Field className='form-control mb-1' id="email" name="email" type="email" placeholder="example@mail.com" />
-                                    <FormLabel><i class="bi bi-envelope-fill"></i> Email</FormLabel>
+                                    <FormLabel><i className="bi bi-envelope-fill"></i> Email</FormLabel>
                                     <ErrorMessage className='text-danger text-center' component="div" name='email' />
                                 </FormGroup>
                                 <FormGroup className="mb-3 form-floating">
                                     <Field className='form-control mb-1' id="password" name="password" type="password" placeholder="***" />
-                                    <FormLabel><i class="bi bi-lock-fill"></i> Password</FormLabel>
+                                    <FormLabel><i className="bi bi-lock-fill"></i> Password</FormLabel>
                                     <ErrorMessage className='text-danger text-center' component="div" name='password' />
                                 </FormGroup>
                                 <FormGroup className="mb-3 text-center">

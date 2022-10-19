@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Modal, Card } from "react-bootstrap";
 import imgCard from '../../assets/logo-avengers-hiberus.png';
+import { useSelector } from 'react-redux';
 
 const User = ({index, user, handlerDelete, handlerEdit}) => {
 
@@ -8,8 +9,7 @@ const User = ({index, user, handlerDelete, handlerEdit}) => {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
 
-    const userLogged = window.localStorage.getItem("loggedUser")
-    const parserUserLogger = JSON.parse(userLogged);
+    const loggedUser = useSelector((state) => state.loggedUser) // value in store
 
     // Modal
     const [showDelete, setShowDelete] = useState(false);
@@ -23,7 +23,6 @@ const User = ({index, user, handlerDelete, handlerEdit}) => {
 
     const handleCloseMeUser = () => setShowMeUser(false);
     const handleShowMeUser = () => setShowMeUser(true);
-
 
     // styles for login user
     const activeUser = {
@@ -39,13 +38,13 @@ const User = ({index, user, handlerDelete, handlerEdit}) => {
     return <>
         <div id={index} className="card col-lg-3 col-md-4 col-sm-6 border-0 mt-3 m-0 rounded-5" >
             <div className="card-body h-25 rounded-top "
-                style={user.id === parserUserLogger.id ? activeUser : noActiveUser}>
+                style={user.id === loggedUser.id ? activeUser : noActiveUser}>
                 <h5 className="card-title ">{user.name} {user.surname}</h5>
                 <samp className="card-text link-success">{user.email}</samp>
             </div>
-            <div style={user.id === parserUserLogger.id ? activeUser : noActiveUser} className="card-footer border-0 rounded-bottom   ">
+            <div style={user.id === loggedUser.id ? activeUser : noActiveUser} className="card-footer border-0 rounded-bottom   ">
                 <kbd className="m-1"><i onClick={handleShowEdit} title="Edit user" className="bi bi-pencil p-2" style={{cursor:'pointer'}}></i></kbd>
-                {user.id !== parserUserLogger.id
+                {user.id !== loggedUser.id
                     ? <kbd className="m-1 "><i onClick={handleShowDelete} title="Delete user" className="bi bi-trash p-2" style={{cursor:'pointer'}}></i></kbd>
                     : <kbd className="m-1 "><i onClick={handleShowMeUser} title="Me user" className="bi bi-person-circle p-2" style={{cursor:'pointer'}}></i></kbd>}
                     
