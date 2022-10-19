@@ -20,7 +20,6 @@ const UserList = () => {
                         setUsers(result)
                         
                     }).catch((err) => {
-                        console.log(err);
                     });
     }, [token]);
 
@@ -79,7 +78,6 @@ const UserList = () => {
                 }
             );
         }).catch((err) => {
-            console.log(err)
         });
     }
 

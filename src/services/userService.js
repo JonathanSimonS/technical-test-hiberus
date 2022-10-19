@@ -69,7 +69,6 @@ const updateUser = async (token, id, email, name, surname) => {
     axios.request(options).then(function (response) {
 
     }).catch(function (error) {
-        console.error(error);
     });
 }
 
@@ -88,9 +87,7 @@ const deleteUser = async (token, id) => {
         }
       };
       axios.request(options).then(function (response) {
-        console.log(response.data);
       }).catch(function (error) {
-        console.error(error);
       });
 }
 

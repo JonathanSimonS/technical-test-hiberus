@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RegisterForm from '../pure/forms/registerForm';
 import {register} from '../../services/authService'
 
@@ -6,20 +6,12 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const RegisterComponent = () => {
 
-    const handlerRegister = (e, email, password, confirmPassword, name, surname) => {
-        e.preventDefault();
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [password, setPassword] = useState('');
 
-        // check password
-        if(password!== confirmPassword) {
-            toast.error('Passwords must match',
-                {   
-                    style: {
-                        borderRadius: '10px',
-                        background: '#333',
-                        color: '#fff',
-                    },
-                })
-        } else {
+    const handlerRegister = (email, password, name, surname) => {
 
             register(email, password, name, surname).then((result) => {
                 toast.success('Successfully sign up, sign in now ',
@@ -30,7 +22,6 @@ const RegisterComponent = () => {
                         color: '#fff',
                     },
                 })           
-                
             }).catch((err) => {
                 toast.error(err,
                     {   
@@ -41,13 +32,12 @@ const RegisterComponent = () => {
                         },
                     })
                 });
-        }
     }
 
     return (
         <div className='h-100 d-flex text-start justify-content-center flex-column'>
             <Toaster />
-            <RegisterForm handlerRegister={handlerRegister}/>
+            <RegisterForm setEmail={setEmail} setName={setName} setSurname={setSurname} setPassword={setPassword} handlerRegister={handlerRegister}/>
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LoginForm from '../pure/forms/loginForm';
-import {login} from '../../services/authService'
+import { login } from '../../services/authService'
 import toast, { Toaster } from 'react-hot-toast';
 import { getMeUser } from '../../services/userService';
 
@@ -9,10 +9,9 @@ const LoginComponent = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handlerLogin = async (e, email, password) => {
-        e.preventDefault();
+    const handlerLogin = async (email, password) => {
 
-        login(email, password)
+        await login(email, password)
         .then((result) => {
             window.localStorage.setItem("token",result.accessToken);
             
@@ -23,7 +22,6 @@ const LoginComponent = () => {
                 window.localStorage.setItem("loggedUser", JSON.stringify(result))
                 window.location.reload()
             }).catch((err) => {
-                console.log(err)
             });
     
         }).catch((err) => {
@@ -41,7 +39,7 @@ const LoginComponent = () => {
     return (
         <div className='h-100 d-flex text-start justify-content-center flex-column'>
             <Toaster />
-            <LoginForm email={email} password={password} setPassword={setPassword} setEmail={setEmail} handlerLogin={handlerLogin}></LoginForm>
+            <LoginForm setPassword={setPassword} setEmail={setEmail} handlerLogin={handlerLogin}></LoginForm>
         </div>
     );
 }
