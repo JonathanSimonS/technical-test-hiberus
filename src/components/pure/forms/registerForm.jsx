@@ -54,7 +54,7 @@ const RegisterForm = ({setEmail, setName, setSurname, setPassword, handlerRegist
         name :  '',
         surname :  '',
         password : '',
-        confirmPassword :  '',
+        passwordConfirm :  '',
     }
 
     return (
@@ -87,7 +87,7 @@ const RegisterForm = ({setEmail, setName, setSurname, setPassword, handlerRegist
                             setName(values.name);
                             setSurname(values.surname);
                             setPassword(values.password);
-                            handlerRegister(values.email, values.name, values.surname, values.password );
+                            handlerRegister(values.email, values.password, values.name, values.surname );
                         }}
                     >
 

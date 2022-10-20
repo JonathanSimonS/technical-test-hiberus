@@ -106,7 +106,10 @@ const UserList = () => {
                     <span className='p-3'> Welcome <strong>{loggedUser && (loggedUser.name +' '+ loggedUser.surname)}</strong></span>
                 </div>
                 <div className='col-lg-4 mt-1'>
+
+                    {/* component button for logout */}
                     <Logout></Logout>
+                    
                 </div>
                 <div className='col-lg-6 mt-3 '>
                     <div className="input-group">

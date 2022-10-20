@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// TODO get values to localStorage ???
 const initialState = {
     'accessToken': '',
     'refreshToken': '',
     'tokenType': ''
-  }
+}
 
 export const tokenSlice = createSlice({
 

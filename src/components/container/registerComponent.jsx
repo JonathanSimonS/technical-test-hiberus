@@ -13,7 +13,7 @@ const RegisterComponent = () => {
 
     const handlerRegister = (email, password, name, surname) => {
 
-            register(email, password, name, surname).then((result) => {
+            register(email, password, name, surname).then((result) => {                
                 toast.success('Successfully sign up, sign in now ',
                 {   
                     style: {

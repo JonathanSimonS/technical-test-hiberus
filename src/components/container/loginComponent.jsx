@@ -16,11 +16,11 @@ const LoginComponent = () => {
     // hook Redux Toolkit
     const dispatch = useDispatch();
 
-    const handlerLogin = async (email, password) => {
-        
-        await login(email, password)
+    const handlerLogin = (email, password) => {
+
+        login(email, password)
         .then((result) => {
-            
+
             dispatch(setToken(result));
             
             // get session user

@@ -10,12 +10,8 @@ const Logout = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    // Call service logout
     const handlerLogout = () => {
-
-        window.localStorage.removeItem("token")
-        window.localStorage.removeItem("loggedUser")
-        
+        window.localStorage.removeItem("persist:root")        
     }
 
     return (

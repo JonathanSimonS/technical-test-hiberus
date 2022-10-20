@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// TODO get values to localStorage ???
 const initialState = {
     'email': '',
     'name': '',
